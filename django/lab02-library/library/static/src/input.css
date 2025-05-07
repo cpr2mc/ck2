@@ -1,0 +1,4 @@
+/* tailwind css input */
+
+@import "tailwindcss";
+@source "../tmplates/**/*.html"
