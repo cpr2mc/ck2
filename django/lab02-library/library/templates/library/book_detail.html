@@ -1,5 +1,7 @@
 {% extends 'library/base.html' %}
 
 {% block content %}
-    <p>Book detail page</p>
+    <h1 class="text-xl text-black">{{ book.title }}</h1>
+    <li>Published Date: {{ book.published_date }}</li>
+    <li>Checked Out: {{ book.checked_out }}</li>
 {% endblock %}
