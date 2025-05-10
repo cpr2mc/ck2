@@ -13,6 +13,7 @@ class Book(models.Model):
     
     def return_book(self):
         self.checked_out = False
+        print('CHECKED IN!')
         self.save()
         return True
 

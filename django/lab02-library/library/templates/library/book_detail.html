@@ -1,7 +1,37 @@
 {% extends 'library/base.html' %}
 
 {% block content %}
-    <h1 class="text-xl text-black">{{ book.title }}</h1>
-    <li>Published Date: {{ book.published_date }}</li>
-    <li>Checked Out: {{ book.checked_out }}</li>
+    {% if book.checked_out == False %}
+    <form action="{% url 'checkout' book.id %}" method="POST">
+    {% csrf_token %}
+        <h1 class="text-xl text-black">{{ book.title }}</h1>
+        <h3 class="text-l text-black">Author:</h3>
+            {% for author in book.authors.all %}
+                <li>{{ author.name }}</li>
+            {% endfor %}
+        <h3 class="text-l text-black">Published Date:</h3>
+        <li>{{ book.published_date }}</li>
+        <li>Checked Out: {{ book.checked_out }}  | 
+            <button type="submit" value="Book.checkout" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded shadow transition duration-150 ease-in-out" style="display: inline">
+                Check Book Out
+            </button>
+        </li>
+    </form>
+    {% else %}
+        <form action="{% url 'return_book' book.id %}" method="POST">
+        {% csrf_token %}
+            <h1 class="text-xl text-black">{{ book.title }}</h1>
+            <h3 class="text-l text-black">Author:</h3>
+            {% for author in book.authors.all %}
+                <li>{{ author.name }}</li>
+            {% endfor %}
+            <h3 class="text-l text-black">Published Date:</h3>
+            <li>{{ book.published_date }}</li>
+            <li>Checked Out: {{ book.checked_out }}  | 
+                <button type="submit" value="Book.return_book" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-1 px-3 rounded shadow transition duration-150 ease-in-out" style="display: inline">
+                    Check Book In
+                </button>
+            </li>
+        </form>       
+    {% endif %}
 {% endblock %}
